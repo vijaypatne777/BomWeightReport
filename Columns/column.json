@@ -1,0 +1,14 @@
+{
+	"cols": [
+		{
+			"label": "Material",
+			"template": "Material",
+			"width": "10rem"
+		},
+		{
+			"label": "Description",
+			"template": "ProductDescription",
+			"width": "25rem"
+		}
+	]
+}

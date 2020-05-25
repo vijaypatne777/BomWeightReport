@@ -1,0 +1,101 @@
+<mvc:View controllerName="com.demo.demo215.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:smartTable="sap.ui.comp.smarttable">
+	<l:VerticalLayout width="100%">
+		<!--	<Label text="Culligan"/>-->
+		<fb:FilterBar reset="onReset" search="onGo" id="btnId" showRestoreButton="true" showClearButton="true">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Material" partOfCurrentVariant="true" visibleInFilterBar="true"
+					mandatory="true">
+					<fb:control>
+						<Input id="multiInput" placeholder="Enter Material No" width="206px" submit="onEnterMatNo"
+							 required="true" showValueHelp="true" valueHelpRequest="onFrag">
+						</Input>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="Plant" labelTooltip="Plant" mandatory="true" partOfCurrentVariant="true"
+					visibleInFilterBar="true">
+					<fb:control>
+						<Input id="idPlant" placeholder="Enter Plant" class="apUiLargeMarginBegin" width="206px" required="true"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="BOM Usage" labelTooltip="BOM Usage" mandatory="true"
+					partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<Input id="idBOMUsage" placeholder="Enter BOM Usage" class="apUiLargeMarginBegin" width="206px" required="true"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<FlexBox height="23px" alignItems="End" alignContent="End" justifyContent="End">
+			<items>
+				<l:HorizontalLayout class="sapUiContentPadding"></l:HorizontalLayout>
+				<!--<Button icon="sap-icon://chain-link" id="button1" text="Display Pur. Req." press="onOpen"/>-->
+				<!--<Button xmlns="sap.m" text="Download Excel" id="button2" press="onDataExport" icon="sap-icon://download-from-cloud"/>-->
+				<Button id="idExportToExcel" tooltip="Download Excel" text="Download Excel" type="Emphasized" press="onDataExport"
+					icon="sap-icon://excel-attachment" iconFirst="true"/>
+			</items>
+		</FlexBox>
+	</l:VerticalLayout>
+	<Table items="{BRF>/result}" id="tab">
+		<headerToolbar>
+			<Toolbar>
+				<Title level="H1" text="Bill Of Materials"/>
+				<ToolbarSpacer/>
+				<!--<Button press="onTableSettings" icon="sap-icon://drop-down-list" tooltip="Settings"/>-->
+				<!--<Button tooltip="View Sort Settings" icon="sap-icon://sort" press="handleSortButtonPressed"/>-->
+				<Button tooltip="View Filter Settings" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
+				<Button tooltip="View Group Settings" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			<Column >
+				<header>
+					<Text text="Material"/>
+				</header>
+			</Column>
+			<Column styleClass="admin">
+				<Label text="Quantity"/>
+			</Column>
+			<Column styleClass="admin">
+				<Label text="Net Weight"/>
+			</Column>
+			<Column styleClass="admin">
+				<Label text="Gross Weight"/>
+				<footer>
+					<Text text="{BRF>/totalSum/0/Label}"/>
+				</footer>
+			</Column>
+			<Column styleClass="admin">
+				<Label text="Total Net Weight"/>
+				<footer>
+					<OverflowToolbar>
+						<Text text="{path:'BRF>/totalSum/0/addNQ' , formatter:'.inox.numFormatftotal'}"/>
+					</OverflowToolbar>
+				</footer>
+			</Column>
+			<Column styleClass="admin">
+				<Label text="Total Gross Weight"/>
+				<footer>
+					<Text text="{path: 'BRF>/totalSum/0/addGQ' , formatter:'.inox.numFormatftotal'}"/>
+				</footer>
+			</Column>
+		</columns>
+		<infoToolbar>
+			<OverflowToolbar id="vsdFilterBar" visible="false">
+				<Text id="vsdFilterLabel"/>
+			</OverflowToolbar>
+		</infoToolbar>
+		<items>
+			<ColumnListItem>
+				<!--<Text text="{ path:'BRF>Mat', formatter:'.inox.iamone'}"/>-->
+				<Text text="{ path:'BRF>Mat'}"/>
+				<Text text="{BRF>Qty}"/>
+				<Text text="{BRF>nwt}"/>
+				<Text text="{BRF>gwt}"/>
+				<Text text="{path:'BRF>tnwt' , formatter: '.inox.numFormat'}"/>
+				<Text text="{path:'BRF>tgwt' , formatter: '.inox.numFormat'}"/>
+			</ColumnListItem>
+		</items>
+	</Table>
+</mvc:View>
