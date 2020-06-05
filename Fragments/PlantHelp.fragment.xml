@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns="sap.ui.comp.valuehelpdialog">
+	
+		<ValueHelpDialog title="Plant" ok=".onValueHelpOkPressPlant" cancel=".onValueHelpCancelPressPlant" afterClose=".onValueHelpAfterClosePlant"
+		
+		 key="Plant" supportMultiselect="false">
+			<filterBar>
+				<fb:FilterBar advancedMode="false" search=".onFilterBarSearchPlant">
+					<fb:filterGroupItems>
+						<!--<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Plant" visibleInFilterBar="true">-->
+						<!--	<fb:control>-->
+						<!--		<m:Input id="PlantId2" showValueHelp="true" placeholder="Enter Plant" required="true" valueHelpRequest="onFragNext"/>-->
+						<!--	</fb:control>-->
+						<!--</fb:FilterGroupItem>-->
+						<!--<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="BOM Usage" visibleInFilterBar="true">-->
+						<!--	<fb:control>-->
+						<!--		<m:Input id="BOMId2" placeholder="Enter BOM Usage" required="true"/>-->
+						<!--	</fb:control>-->
+						<!--</fb:FilterGroupItem>-->
+					</fb:filterGroupItems>
+				</fb:FilterBar>
+			</filterBar>
+		</ValueHelpDialog>
+	
+</core:FragmentDefinition>

@@ -1,0 +1,141 @@
+<mvc:View controllerName="com.bom.bomweight.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:smartTable="sap.ui.comp.smarttable">
+	<l:VerticalLayout width="100%">
+		<!--	<Label text="Culligan"/>-->
+		<fb:FilterBar reset="onReset" search="onGo" id="btnId" showRestoreButton="true" showClearButton="true">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="Material" partOfCurrentVariant="true" visibleInFilterBar="true"
+					mandatory="true">
+					<fb:control>
+						<Input id="multiInput" placeholder="Enter Material No" width="206px" submit="onEnterMatNo" required="true" showValueHelp="true"
+							valueHelpRequest="onFrag"></Input>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="Plant" labelTooltip="Plant" mandatory="true" partOfCurrentVariant="true"
+					visibleInFilterBar="true">
+					<fb:control>
+						<Input id="idPlant" placeholder="Enter Plant" class="apUiLargeMarginBegin" width="206px" required="true" liveChange="onLiveChange"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="BOM Usage" labelTooltip="BOM Usage" mandatory="true"
+					partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<Input id="idBOMUsage" placeholder="Enter BOM Usage" class="apUiLargeMarginBegin" width="206px" required="true"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+	</l:VerticalLayout>
+	<Table items="{path:'BRF>/p', sorter:[{ path: 'lvl', descending: false},{ path: 'itm', descending: false } ]}" id="tab"
+		alternateRowColors="true" updateFinished=".onUpdateFinished">
+		<headerToolbar>
+			<Toolbar>
+				<Title level="H1" text="{worklistView>/worklistTableTitle}"/>
+				<ToolbarSpacer/>
+				<Button tooltip="View Group Settings" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+				<Button id="idExportToExcel" tooltip="Export to Excel" text="Export to Excel" type="Emphasized" width="12%" press="onDataExport"
+					icon="sap-icon://excel-attachment" iconFirst="true"/>
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="Header Material"/>
+			</Column>
+			<Column id="abcd">
+				<Text text="Masterdata Net Weight"/>
+				<footer>
+					<Text text="{path: 'BRF>/m/0/mmNW'}"/>
+				</footer>
+			</Column>
+			<Column >
+				<Text text="Masterdata Gross Weight"/>
+				<footer>
+					<Text text="{path: 'BRF>/m/0/mmGW'}"/>
+				</footer>
+			</Column>
+			<Column hAlign="Center">
+				<!--<header>-->
+				<Text text="BOM Item No"/>
+				<!--</header>-->
+			</Column>
+			<Column >
+				<!--<header>-->
+				<Text text="BOM Component"/>
+				<!--</header>-->
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Is Assembly"/>
+			</Column>
+			<Column>
+				<Text text="Description"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="BOM Quantity"/>
+			</Column>
+			<Column >
+				<Text text="Net Weight"/>
+			</Column>
+			<Column >
+				<Text text="Gross Weight"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="Weight Unit"/>
+				<footer>
+					<Text text="{path:'BRF>/s/0/label'}"/>
+				</footer>
+			</Column>
+			<Column >
+				<Text text="Total Net Weight"/>
+				<footer>
+					<OverflowToolbar>
+						<Text text="{path:'BRF>/s/0/addNQ',formatter:'.inox.numFormatftotal'}"/>
+					</OverflowToolbar>
+				</footer>
+			</Column>
+			<Column>
+				<Text text="Total Gross Weight"/>
+				<footer>
+					<Text text="{path: 'BRF>/s/0/addGQ',formatter:'.inox.numFormatftotal'}"/>
+				</footer>
+			</Column>
+			<!--<Column >-->
+			<!--	<Text text="Masterdata Net Weight"/>-->
+			<!--	<footer>-->
+			<!--		<Text text="{path: 'BRF>/m/0/mmNW'}"/>-->
+			<!--	</footer>-->
+			<!--</Column>-->
+			<!--<Column >-->
+			<!--	<Text text="Masterdata Gross Weight"/>-->
+			<!--	<footer>-->
+			<!--		<Text text="{path: 'BRF>/m/0/mmGW'}"/>-->
+			<!--	</footer>-->
+			<!--</Column>-->
+		</columns>
+		<items>
+			<ColumnListItem>
+				<Text text="{BRF>mat}"/>
+				<ObjectIdentifier title="{path: 'BRF>/m/0/mmNW',formatter:'.inox.fatrow'}"
+					text="{parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}" id="qqq"/>
+				<ObjectIdentifier title="{path: 'BRF>/m/0/mmGW',formatter:'.inox.fatnextrow'}"
+					text="{parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>
+				<ObjectIdentifier text="{path:'BRF>itm'}"/>
+				<FormattedText htmlText="{parts:[{ path: 'BRF>bmc'}, { path: 'BRF>asm' }] , formatter:'.inox.bold'}"/>
+				<Text text="{BRF>asm}"/>
+				<Text text="{BRF>cmd}" wrapping="true"/>
+				<Text text="{BRF>qty}"/>
+				<Text text="{BRF>net}"/>
+				<Text text="{BRF>gro}"/>
+				<Text text="{BRF>wun}"/>
+				<Text text="{path:'BRF>tnt',formatter:'.inox.numFormat'}"/>
+				<Text text="{path:'BRF>tgt',formatter:'.inox.numFormat'}"/>
+				<!--<FormattedText htmlText="{parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'} {parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}" visible="true" id="master2"/>-->
+				<!--<FormattedText htmlText="{parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'} {parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>-->
+				<!--<ObjectIdentifier title="{path: 'BRF>/m/0/mmNW',formatter:'.inox.fatrow'}"-->
+				<!--	text="{parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>-->
+				<!--<ObjectIdentifier title="{path: 'BRF>/m/0/mmGW',formatter:'.inox.fatnextrow'}"-->
+				<!--	text="{parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>-->
+			</ColumnListItem>
+		</items>
+	</Table>
+</mvc:View>
