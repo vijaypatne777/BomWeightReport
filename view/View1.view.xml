@@ -1,0 +1,145 @@
+<mvc:View controllerName="com.bom.bomweight.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:smartTable="sap.ui.comp.smarttable">
+	<l:VerticalLayout width="100%">
+		<!--	<Label text="Culligan"/>-->
+		<fb:FilterBar reset="onReset" search="onGo" id="btnId" showRestoreButton="true" showClearButton="true">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>firstInput}" partOfCurrentVariant="true" visibleInFilterBar="true"
+					mandatory="true">
+					<fb:control>
+						<Input id="multiInput" placeholder="{i18n>firstInputPlaceholder}" width="206px" submit="onEnterMatNo" required="true" showValueHelp="true"
+							valueHelpRequest="onFrag"></Input>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>secondInput}" labelTooltip="Plant" mandatory="true" partOfCurrentVariant="true"
+					visibleInFilterBar="true">
+					<fb:control>
+						<Input id="idPlant" placeholder="{i18n>secondInputPlaceholder}" class="apUiLargeMarginBegin" width="206px" required="true" liveChange="onLiveChange"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>thirdInput}" labelTooltip="BOM Usage" mandatory="true"
+					partOfCurrentVariant="true" visibleInFilterBar="true">
+					<fb:control>
+						<Input id="idBOMUsage" placeholder="{i18n>thirdInputPlaceholder}" class="apUiLargeMarginBegin" width="206px" required="true"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+	</l:VerticalLayout>
+	<Table items="{path:'BRF>/p', sorter:[{ path: 'lvl', descending: false},{ path: 'itm', descending: false } ]}" id="tab" alternateRowColors="true"
+		updateFinished=".onUpdateFinished">
+		<headerToolbar>
+			<Toolbar>
+				<Title level="H1" text="{worklistView>/worklistTableTitle}"/>
+				<ToolbarSpacer/>
+				<Button tooltip="{i18n>groupBtnTooltip}" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>
+				<Button id="idExportToExcel" tooltip="{i18n>excelTooltip}" text="{i18n>excelBtnText}" type="Emphasized" width="12%" press="onDataExport"
+					icon="sap-icon://excel-attachment" iconFirst="true"/>
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="{i18n>headerMat}"/>
+			</Column>
+				<Column hAlign="Center">
+				<Text text="{i18n>level}"/>
+			</Column>
+			<Column id="abcd">
+				<Text text="{i18n>masterDataNetWt}"/>
+				<footer>
+					<Text text="{path: 'BRF>/m/0/mmNW'}"/>
+				</footer>
+			</Column>
+			<Column >
+				<Text text="{i18n>masterDataGrossWt}"/>
+				<footer>
+					<Text text="{path: 'BRF>/m/0/mmGW'}"/>
+				</footer>
+			</Column>
+			<Column hAlign="Center">
+				<!--<header>-->
+				<Text text="{i18n>bomItemNo}"/>
+				<!--</header>-->
+			</Column>
+			<Column >
+				<!--<header>-->
+				<Text text="{i18n>bomComponent}"/>
+				<!--</header>-->
+			</Column>
+			<Column hAlign="Center">
+				<Text text="{i18n>isAsmbly}"/>
+			</Column>
+			<Column>
+				<Text text="{i18n>description}"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="{i18n>bomQty}"/>
+			</Column>
+			<Column >
+				<Text text="{i18n>netWt}"/>
+			</Column>
+			<Column >
+				<Text text="{i18n>grossWt}"/>
+			</Column>
+			<Column hAlign="Center">
+				<Text text="{i18n>wtUnit}"/>
+				<footer>
+					<Text text="{path:'BRF>/s/0/label'}"/>
+				</footer>
+			</Column>
+			<Column >
+				<Text text="{i18n>totalNetWt}"/>
+				<footer>
+					<OverflowToolbar>
+						<Text text="{path:'BRF>/s/0/addNQ',formatter:'.inox.numFormatftotal'}"/>
+					</OverflowToolbar>
+				</footer>
+			</Column>
+			<Column>
+				<Text text="{i18n>totalGrossWt}"/>
+				<footer>
+					<Text text="{path: 'BRF>/s/0/addGQ',formatter:'.inox.numFormatftotal'}"/>
+				</footer>
+			</Column>
+			<!--<Column >-->
+			<!--	<Text text="Masterdata Net Weight"/>-->
+			<!--	<footer>-->
+			<!--		<Text text="{path: 'BRF>/m/0/mmNW'}"/>-->
+			<!--	</footer>-->
+			<!--</Column>-->
+			<!--<Column >-->
+			<!--	<Text text="Masterdata Gross Weight"/>-->
+			<!--	<footer>-->
+			<!--		<Text text="{path: 'BRF>/m/0/mmGW'}"/>-->
+			<!--	</footer>-->
+			<!--</Column>-->
+		</columns>
+		<items>
+			<ColumnListItem>
+				<Text text="{BRF>mat}"/>
+				<Text text="{BRF>lvl}"/>
+				<ObjectIdentifier title="{path: 'BRF>/m/0/mmNW',formatter:'.inox.fatrow'}"
+					text="{parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}" id="qqq"/>
+				<ObjectIdentifier title="{path: 'BRF>/m/0/mmGW',formatter:'.inox.fatnextrow'}"
+					text="{parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>
+				<ObjectIdentifier text="{path:'BRF>itm'}"/>
+				<FormattedText htmlText="{parts:[{ path: 'BRF>bmc'}, { path: 'BRF>asm' }] , formatter:'.inox.bold'}"/>
+				<Text text="{BRF>asm}"/>
+				<Text text="{BRF>cmd}" wrapping="true"/>
+				<Text text="{BRF>qty}"/>
+				<Text text="{BRF>net}"/>
+				<Text text="{BRF>gro}"/>
+				<Text text="{BRF>wun}"/>
+				<Text text="{path:'BRF>tnt',formatter:'.inox.numFormat'}"/>
+				<Text text="{path:'BRF>tgt',formatter:'.inox.numFormat'}"/>
+				<!--<FormattedText htmlText="{parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'} {parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}" visible="true" id="master2"/>-->
+				<!--<FormattedText htmlText="{parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'} {parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>-->
+				<!--<ObjectIdentifier title="{path: 'BRF>/m/0/mmNW',formatter:'.inox.fatrow'}"-->
+				<!--	text="{parts:[{ path: 'BRF>mnw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>-->
+				<!--<ObjectIdentifier title="{path: 'BRF>/m/0/mmGW',formatter:'.inox.fatnextrow'}"-->
+				<!--	text="{parts:[{ path: 'BRF>mgw'}, { path: 'BRF>asm' }] , formatter:'.inox.flex'}"/>-->
+			</ColumnListItem>
+		</items>
+	</Table>
+</mvc:View>
