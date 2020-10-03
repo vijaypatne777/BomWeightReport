@@ -42,7 +42,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 			}, {
 				label: "Level",
-				property: "lvl"
+				property: "lvl",
+				type: sap.ui.export.EdmType.Number
 
 			}, {
 				label: "Masterdata Net Weight",
@@ -54,7 +55,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 			}, {
 				label: "BOM Item No",
-				property: "itm"
+				property: "itm",
+				type: sap.ui.export.EdmType.Number
 
 			}, {
 				label: "BOM Component",
@@ -70,14 +72,21 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 			}, {
 				label: "BOM Quantity",
-				property: "qty"
+				property: "qty",
+				type: sap.ui.export.EdmType.Number
 
 			}, {
 				label: "Net Weight",
-				property: "net"
+				property: "net",
+				type: sap.ui.export.EdmType.Number,
+				delimiter: true,
+				scale: 3
 			}, {
 				label: "Gross Weight",
-				property: "gro"
+				property: "gro",
+				type: sap.ui.export.EdmType.Number,
+				delimiter: true,
+				scale: 3
 
 			}, {
 				label: "Weight Unit",
@@ -85,11 +94,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 			}, {
 				label: "Total Net Weight",
-				property: "tnt"
+				property: "tnt",
+				type: sap.ui.export.EdmType.Number,
+				delimiter: true,
+				scale: 3
 			}, {
 				label: "Total Gross Weight",
-				property: "tgt"
-
+				property: "tgt",
+				type: sap.ui.export.EdmType.Number,
+				delimiter: true,
+				scale: 3
 			}];
 		}
 

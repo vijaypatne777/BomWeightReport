@@ -10,11 +10,11 @@ sap.ui.define([
 	"use strict";
 	var oBusyDialog = new sap.m.BusyDialog(),
 		flag = false;
-	var oNumberFormat = sap.ui.core.format.NumberFormat.getFloatInstance({
-		maxFractionDigits: 3,
-		decimalSeparator: ",",
-		groupingEnabled: false
-	});
+	// var oNumberFormat = sap.ui.core.format.NumberFormat.getIntegerInstance({
+	// 	maxFractionDigits: 3,
+	// 	decimalSeparator: ",",
+	// 	groupingEnabled: false
+	// });
 	return Controller.extend("com.bom.bomweight.controller.View1", {
 		onInit: function () {
 			this.oColModel = new sap.ui.model.json.JSONModel("Columns/column.json");
@@ -169,14 +169,16 @@ sap.ui.define([
 											});
 											// dialog.close();
 											var ice = JSON.parse(JSON.stringify(k.p));
-											ice[0].dia = oNumberFormat.format(mmNW) + " " + mmWU;
-											ice[0].gol = oNumberFormat.format(mmGW) + " " + mmWU;
-											for (i = 0; i < ice.length; i++) {
-												ice[i].net = oNumberFormat.format(ice[i].net);
-												ice[i].gro = oNumberFormat.format(ice[i].gro);
-												ice[i].tnt = oNumberFormat.format(ice[i].tnt);
-												ice[i].tgt = oNumberFormat.format(ice[i].tgt);
-											}
+											// ice[0].dia = oNumberFormat.format(mmNW) + " " + mmWU;
+											// ice[0].gol = oNumberFormat.format(mmGW) + " " + mmWU;
+											   ice[0].dia = mmNW + " " + mmWU;
+											   ice[0].gol = mmGW + " " + mmWU;
+											// for (i = 0; i < ice.length; i++) {
+											// 	ice[i].net = oNumberFormat.format(ice[i].net);
+											// 	ice[i].gro = oNumberFormat.format(ice[i].gro);
+											// 	ice[i].tnt = oNumberFormat.format(ice[i].tnt);
+											// 	ice[i].tgt = oNumberFormat.format(ice[i].tgt);
+											// }
 										
 											var emod = new sap.ui.model.json.JSONModel();
 											emod.setSizeLimit(ice.length);
